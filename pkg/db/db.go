@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/jmoiron/sqlx"
@@ -9,10 +10,10 @@ import (
 
 var DB *sqlx.DB
 
-// Инициализация базы данных
-func Init(dbfile string) error {
+var ErrDBNotInitialized = fmt.Errorf("db is not initialized")
 
-	// создаём файл, если его нет
+
+func Init(dbfile string) error {
 	if _, err := os.Stat(dbfile); os.IsNotExist(err) {
 		f, err := os.Create(dbfile)
 		if err != nil {
@@ -26,8 +27,6 @@ func Init(dbfile string) error {
 	if err != nil {
 		return err
 	}
-
-	// создаём таблицу scheduler
 	schema := `
 CREATE TABLE IF NOT EXISTS scheduler (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,

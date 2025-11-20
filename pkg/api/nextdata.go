@@ -31,7 +31,7 @@ func NextDate(now time.Time, dstart string, repeat string) (string, error) {
 	parts := strings.Split(strings.TrimSpace(repeat), " ")
 	rule := parts[0]
 
-	// d N
+
 	if rule == "d" {
 		if len(parts) != 2 {
 			return "", errors.New("bad d rule")
@@ -50,7 +50,7 @@ func NextDate(now time.Time, dstart string, repeat string) (string, error) {
 		}
 	}
 
-	// y
+
 	if rule == "y" {
 		if len(parts) != 1 {
 			return "", errors.New("bad y rule")
@@ -66,7 +66,7 @@ func NextDate(now time.Time, dstart string, repeat string) (string, error) {
 	return "", errors.New("unsupported rule")
 }
 
-// HTTP handler
+
 func nextDateHandler(w http.ResponseWriter, r *http.Request) {
 
 	nowStr := r.FormValue("now")
